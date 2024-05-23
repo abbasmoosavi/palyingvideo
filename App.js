@@ -35,9 +35,9 @@ const App = () => {
         renderItem={renderItem}
         onViewableItemsChanged={onViewRef.current}
         viewabilityConfig={viewConfigRef.current}
-        maxToRenderPerBatch={5}
-        windowSize={5}
-        initialNumToRender={5}
+        maxToRenderPerBatch={7}
+        windowSize={7}
+        initialNumToRender={7}
         removeClippedSubviews
       />
     </View>

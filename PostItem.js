@@ -8,6 +8,41 @@ import {
 import Video from 'react-native-video';
 
 const PostItem = ({item, index, visibleCurrentPost}) => {
+  const onLoadStart = event => {
+    if (index === 0) {
+      console.log('onLoadStart', event, item?.video);
+    }
+  };
+  const onLoad = event => {
+    if (index === 0) {
+      console.log('onLoad', event);
+    }
+  };
+  const onReadyForDisplay = event => {
+    if (index === 0) {
+      console.log('onReadyForDisplay', event);
+    }
+  };
+  const onBuffer = event => {
+    if (index === 0) {
+      console.log('onBuffer', event);
+    }
+  };
+  const onProgress = event => {
+    if (index === 0) {
+      console.log('onProgress', event);
+    }
+  };
+  const onEnd = event => {
+    if (index === 0) {
+      console.log('onEnd');
+    }
+  };
+  const onError = event => {
+    if (index === 0) {
+      console.log('onError', event);
+    }
+  };
   return (
     <Col style={[styles.item, index !== 0 && styles.itemSeparator]}>
       <Row style={styles.itemHeader}>
@@ -20,27 +55,27 @@ const PostItem = ({item, index, visibleCurrentPost}) => {
           }}
           disableFocus={true}
           controls={true}
-          maxBitRate={500}
           style={styles.video}
           repeat={true}
           paused={visibleCurrentPost?.id !== item?.id}
           muted={false}
           playInBackground={false}
           minLoadRetryCount={5}
-          selectedVideoTrack={{type: 'disable'}}
           resizeMode="cover"
-          onError={e => console.log('error video', e)}
+          maxBitRate={500} // Increase maxBitRate for better quality (ensure network can handle it)
           bufferConfig={{
-            minBufferMs: 200,
-            maxBufferMs: 400,
-            bufferForPlaybackMs: 200,
-            bufferForPlaybackAfterRebufferMs: 200,
-            backBufferDurationMs: 120000,
-            cacheSizeMB: 50,
-            live: {
-              targetOffsetMs: 500,
-            },
+            minBufferMs: 50,
+            maxBufferMs: 100,
+            bufferForPlaybackMs: 25,
+            bufferForPlaybackAfterRebufferMs: 50,
           }}
+          onError={onError}
+          onLoadStart={onLoadStart}
+          onLoad={onLoad}
+          onBuffer={onBuffer}
+          onEnd={onEnd}
+          onProgress={onProgress}
+          onReadyForDisplay={onReadyForDisplay}
         />
       </Grid>
       <Row style={styles.itemHeader}>
